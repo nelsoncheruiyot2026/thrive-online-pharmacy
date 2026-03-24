@@ -17,6 +17,7 @@ const prescriptionRoutes = require('./routes/prescription.routes');
 const paymentRoutes = require('./routes/payment.routes');
 const adminRoutes = require('./routes/admin.routes');
 const userRoutes = require('./routes/user.routes');
+const posRoutes = require('./routes/pos.routes');
 
 const { errorHandler } = require('./middleware/error.middleware');
 
@@ -81,6 +82,7 @@ app.use('/api/prescriptions', prescriptionRoutes);
 app.use('/api/payments', paymentRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/users', userRoutes);
+app.use('/api/pos', posRoutes);
 
 // M-Pesa callback (no auth required - called by Safaricom)
 app.use('/api/mpesa', require('./routes/mpesa.routes'));

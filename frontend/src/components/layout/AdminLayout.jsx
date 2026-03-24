@@ -9,7 +9,9 @@ import {
   Bars3Icon,
   XMarkIcon,
   ArrowLeftOnRectangleIcon,
-  BeakerIcon
+  BeakerIcon,
+  ComputerDesktopIcon,
+  ChartBarIcon,
 } from '@heroicons/react/24/outline'
 import { useAuthStore } from '../../store/authStore'
 
@@ -19,6 +21,8 @@ const navItems = [
   { path: '/admin/orders', label: 'Orders', icon: ClipboardDocumentListIcon },
   { path: '/admin/prescriptions', label: 'Prescriptions', icon: DocumentTextIcon },
   { path: '/admin/customers', label: 'Customers', icon: UsersIcon },
+  { path: '/admin/pos', label: 'POS Terminal', icon: ComputerDesktopIcon, exact: true },
+  { path: '/admin/pos/sales', label: 'Sales History', icon: ChartBarIcon },
 ]
 
 export default function AdminLayout() {
@@ -132,7 +136,7 @@ export default function AdminLayout() {
             <Bars3Icon className="h-6 w-6" />
           </button>
           <h1 className="text-lg font-semibold text-gray-900">
-            {navItems.find(item => isActive(item))?.label || 'Admin'}
+            {[...navItems].reverse().find(item => isActive(item))?.label || 'Admin'}
           </h1>
           <div className="text-sm text-gray-500">
             {new Date().toLocaleDateString('en-KE', { dateStyle: 'long' })}
@@ -140,7 +144,7 @@ export default function AdminLayout() {
         </div>
 
         {/* Page Content */}
-        <div className="flex-1 overflow-y-auto p-4 sm:p-6">
+        <div className="flex-1 overflow-y-auto p-4 sm:p-6 flex flex-col">
           <Outlet />
         </div>
       </div>

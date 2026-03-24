@@ -24,6 +24,8 @@ import AdminProducts from './pages/admin/AdminProducts'
 import AdminOrders from './pages/admin/AdminOrders'
 import AdminPrescriptions from './pages/admin/AdminPrescriptions'
 import AdminCustomers from './pages/admin/AdminCustomers'
+import POSTerminal from './pages/admin/POSTerminal'
+import POSSales from './pages/admin/POSSales'
 
 // Auth stores
 import { useAuthStore } from './store/authStore'
@@ -88,6 +90,8 @@ function App() {
         <Route path="orders" element={<AdminOrders />} />
         <Route path="prescriptions" element={<AdminPrescriptions />} />
         <Route path="customers" element={<AdminCustomers />} />
+        <Route path="pos" element={<POSTerminal />} />
+        <Route path="pos/sales" element={<POSSales />} />
       </Route>
 
       {/* 404 */}

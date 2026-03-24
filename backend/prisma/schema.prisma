@@ -38,6 +38,13 @@ enum PaymentMethod {
   MPESA
   CARD
   CASH_ON_DELIVERY
+  CASH
+}
+
+enum SaleStatus {
+  COMPLETED
+  REFUNDED
+  VOIDED
 }
 
 enum PaymentStatus {
@@ -66,6 +73,7 @@ model User {
   cart          Cart?
   prescriptions Prescription[]
   reviews       Review[]
+  sales         Sale[]         @relation("CashierSales")
 
   @@map("users")
 }
@@ -131,6 +139,7 @@ model Product {
   orderItems OrderItem[]
   cartItems  CartItem[]
   reviews    Review[]
+  saleItems  SaleItem[]
 
   @@map("products")
 }
@@ -257,6 +266,48 @@ model Review {
 
   @@unique([userId, productId])
   @@map("reviews")
+}
+
+model Sale {
+  id                 String        @id @default(uuid())
+  saleNumber         String        @unique
+  cashierId          String
+  customerId         String?
+  customerName       String?
+  customerPhone      String?
+  subtotal           Decimal       @db.Decimal(10, 2)
+  discount           Decimal       @db.Decimal(10, 2) @default(0)
+  tax                Decimal       @db.Decimal(10, 2) @default(0)
+  total              Decimal       @db.Decimal(10, 2)
+  paymentMethod      PaymentMethod @default(CASH)
+  status             SaleStatus    @default(COMPLETED)
+  mpesaPhone         String?
+  mpesaReceiptNumber String?
+  cashTendered       Decimal?      @db.Decimal(10, 2)
+  changeDue          Decimal?      @db.Decimal(10, 2)
+  notes              String?
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+
+  cashier   User       @relation("CashierSales", fields: [cashierId], references: [id])
+  items     SaleItem[]
+
+  @@map("sales")
+}
+
+model SaleItem {
+  id        String  @id @default(uuid())
+  saleId    String
+  productId String
+  quantity  Int
+  unitPrice Decimal @db.Decimal(10, 2)
+  discount  Decimal @db.Decimal(10, 2) @default(0)
+  subtotal  Decimal @db.Decimal(10, 2)
+
+  sale    Sale    @relation(fields: [saleId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+
+  @@map("sale_items")
 }
 
 model Notification {
