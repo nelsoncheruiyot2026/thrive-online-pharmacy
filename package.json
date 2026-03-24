@@ -1,0 +1,30 @@
+{
+  "name": "thrive-online-pharmacy",
+  "version": "1.0.0",
+  "description": "Full-stack online pharmacy for Thrive Pharmacy Kenya — React, Node.js, PostgreSQL, Prisma, M-Pesa",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
+  "scripts": {
+    "dev:backend": "cd backend && npm run dev",
+    "dev:frontend": "cd frontend && npm run dev",
+    "install:all": "npm install && cd backend && npm install && cd ../frontend && npm install",
+    "build:frontend": "cd frontend && npm run build",
+    "db:migrate": "cd backend && npm run migrate",
+    "db:seed": "cd backend && npm run seed",
+    "db:studio": "cd backend && npm run studio"
+  },
+  "keywords": [
+    "pharmacy",
+    "kenya",
+    "mpesa",
+    "react",
+    "express",
+    "prisma",
+    "postgresql"
+  ],
+  "author": "Thrive Pharmacy",
+  "license": "MIT"
+}
